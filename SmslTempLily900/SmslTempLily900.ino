@@ -42,8 +42,9 @@ void setup() {
           sendATcommand("AT+CREG?", "+CREG: 0,5", 500)) == 0 );
 
   // Get Temperature and Put in Message
+  // Putting to strings together is tricky - http://forum.arduino.cc/index.php/topic,182271.0.html 
   TempF=GetTempF();  
-  sprintf(sms_string,"The Temperature is ", TempF);
+  sprintf(sms_string,"The Temperature is %d.%04d", (int)TempF, (int)(TempF * 1000.0) % 1000);
   
   // Send the Temperature
   sendSMS(sms_string);
